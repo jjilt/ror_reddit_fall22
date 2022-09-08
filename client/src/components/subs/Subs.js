@@ -27,7 +27,19 @@ const Subs = () => {
   }
 
   const updateSub = (id, sub) => {
-
+    // update in the back end
+    axios.put(`/api/subs/${id}`, { sub })
+      .then( res => {
+        // update in the front end
+        const newUpdatedSubs = subs.map( s => {
+          if (s.id === id) {
+            return res.data
+          }
+          return s
+        })
+        setSubs(newUpdatedSubs)
+      })
+      .catch( err => console.log(err) )
   }
 
   const deleteSub = (id) => {
@@ -49,6 +61,7 @@ const Subs = () => {
       <SubForm addSub={addSub} />
       <SubList 
         subs={subs}
+        updateSub={updateSub}
         deleteSub={deleteSub}
       />
     </>

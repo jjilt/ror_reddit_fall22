@@ -1,6 +1,6 @@
 import SubShow from './SubShow';
 
-const SubList = ({ subs, deleteSub }) => (
+const SubList = ({ subs, updateSub, deleteSub }) => (
   <>
     { subs.map( s => 
       <SubShow
@@ -8,6 +8,7 @@ const SubList = ({ subs, deleteSub }) => (
         {...s} // spread out the content of key and values of what the sub have 
         // id={s.id} title={s.title} created_at...
         deleteSub={deleteSub}
+        updateSub={updateSub}
       />
     )}
   </>

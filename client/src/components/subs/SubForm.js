@@ -1,19 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const SubForm = ({ addSub }) => {
+const SubForm = ({ addSub, id, title, setEdit, updateSub }) => {
                               //  fields the obj has
   const [sub, setSub] = useState({ title: '' })
+
+  useEffect( () => {
+    // pre fill the form
+    if (id) {
+      // setSub({ title: title })
+      setSub({ title })
+    }
+  }, [])
 
   const handleSubmit = (e) => {
     // not do a full page reload, and lose data and post in the url
     e.preventDefault()
-    addSub(sub)
+    // see if we are doing a edit
+    if (id) {
+      updateSub(id, sub)
+      setEdit(false)
+    } else {
+      addSub(sub)
+    }
     // clear out the form 
     setSub({ title: '' })
   }
 
   return (
     <>
+      <h2>{ id ? 'Edit' : 'Create' } Sub</h2>
       <form onSubmit={handleSubmit}>
         <label>Title</label>
         {/* 1 input for each attr */}
